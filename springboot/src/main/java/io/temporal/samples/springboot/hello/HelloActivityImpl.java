@@ -21,17 +21,24 @@ package io.temporal.samples.springboot.hello;
 
 import io.temporal.samples.springboot.hello.model.Person;
 import io.temporal.spring.boot.ActivityImpl;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 @Component
 @ActivityImpl(taskQueues = "HelloSampleTaskQueue")
 public class HelloActivityImpl implements HelloActivity {
+  private static final Logger log = LoggerFactory.getLogger(HelloActivityImpl.class);
+
   @Value("${samples.data.language}")
   private String language;
 
   @Override
   public String hello(Person person) {
+
+    log.info("Calling hello activity " + MDC.get("X-test-key-wf"));
     String greeting = language.equals("spanish") ? "Hola " : "Hello ";
     return greeting + person.getFirstName() + " " + person.getLastName() + "!";
   }

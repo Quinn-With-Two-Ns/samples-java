@@ -24,6 +24,7 @@ import io.temporal.samples.springboot.hello.model.Person;
 import io.temporal.spring.boot.WorkflowImpl;
 import io.temporal.workflow.Workflow;
 import java.time.Duration;
+import org.slf4j.MDC;
 
 @WorkflowImpl(taskQueues = "HelloSampleTaskQueue")
 public class HelloWorkflowImpl implements HelloWorkflow {
@@ -35,6 +36,9 @@ public class HelloWorkflowImpl implements HelloWorkflow {
 
   @Override
   public String sayHello(Person person) {
+    Workflow.getLogger(HelloWorkflowImpl.class).info("Calling sayHello");
+    MDC.put("X-test-key-wf", person.getFirstName());
+
     return activity.hello(person);
   }
 }

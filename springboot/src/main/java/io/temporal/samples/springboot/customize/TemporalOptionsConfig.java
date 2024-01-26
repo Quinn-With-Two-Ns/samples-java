@@ -25,6 +25,7 @@ import io.temporal.spring.boot.TemporalOptionsCustomizer;
 import io.temporal.spring.boot.WorkerOptionsCustomizer;
 import io.temporal.worker.WorkerFactoryOptions;
 import io.temporal.worker.WorkerOptions;
+import java.util.Collections;
 import javax.annotation.Nonnull;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -79,6 +80,7 @@ public class TemporalOptionsConfig {
           @Nonnull WorkflowClientOptions.Builder optionsBuilder) {
         // set options on optionsBuilder as needed
         // ...
+        optionsBuilder.setContextPropagators(Collections.singletonList(new MDCContextPropagator()));
         return optionsBuilder;
       }
     };

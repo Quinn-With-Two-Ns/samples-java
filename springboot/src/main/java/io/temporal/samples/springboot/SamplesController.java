@@ -31,6 +31,7 @@ import io.temporal.samples.springboot.kafka.MessageWorkflow;
 import io.temporal.samples.springboot.update.PurchaseWorkflow;
 import io.temporal.samples.springboot.update.model.ProductRepository;
 import io.temporal.samples.springboot.update.model.Purchase;
+import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -57,6 +58,8 @@ public class SamplesController {
       consumes = {MediaType.APPLICATION_JSON_VALUE},
       produces = {MediaType.TEXT_HTML_VALUE})
   ResponseEntity helloSample(@RequestBody Person person) {
+    MDC.put("X-test", "testing123");
+    System.out.println(MDC.get("X-test"));
     HelloWorkflow workflow =
         client.newWorkflowStub(
             HelloWorkflow.class,
@@ -64,7 +67,6 @@ public class SamplesController {
                 .setTaskQueue("HelloSampleTaskQueue")
                 .setWorkflowId("HelloSample")
                 .build());
-
     // bypass thymeleaf, don't return template name just result
     return new ResponseEntity<>("\"" + workflow.sayHello(person) + "\"", HttpStatus.OK);
   }
