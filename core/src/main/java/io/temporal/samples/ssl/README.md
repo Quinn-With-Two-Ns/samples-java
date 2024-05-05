@@ -19,7 +19,7 @@ Before running the example you need to export the following env variables:
 ./gradlew -q execute -PmainClass=io.temporal.samples.ssl.Starter
 ```
 
-## Run SslEnabledWorkerCustomCA Sample
+## Workflow execution with mTLS and custom Certificate Authority
 
 This sample shows how to start a worker that connects to a temporal cluster with mTLS enabled; created by ([tls-simple sample](https://github.com/temporalio/samples-server/tree/main/tls/tls-simple));
 

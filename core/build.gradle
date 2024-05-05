@@ -22,6 +22,11 @@ dependencies {
     implementation "io.opentelemetry:opentelemetry-semconv:$otelVersionAlpha"
     implementation 'io.jaegertracing:jaeger-client:1.8.1'
 
+    // Tink dependencies
+    implementation 'com.google.crypto.tink:tink:1.13.0'
+    implementation 'com.google.crypto.tink:tink-awskms:1.9.1'
+
+
     // Used in samples
     implementation group: 'commons-configuration', name: 'commons-configuration', version: '1.10'
     implementation group: 'io.cloudevents', name: 'cloudevents-core', version: '2.5.0'
